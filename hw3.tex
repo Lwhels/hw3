@@ -1,0 +1,96 @@
+\documentclass[11pt]{exam}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{babel}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,mathtools}
+\usepackage{titling, float, parskip, blkarray, multirow}
+\usepackage[margin=1in, lmargin=0.5in]{geometry}
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0in}
+\usepackage[math]{cellspace}
+\cellspacetoplimit 3pt
+\cellspacebottomlimit 3pt
+\setlength{\arraycolsep}{4pt}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{enumerate}
+\usepackage{matlab-prettifier}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+\setlength{\droptitle}{-6em}
+\pretitle{\flushleft\Large\bfseries} 
+\posttitle{}
+\preauthor{\flushleft\Large}
+\postauthor{}
+\predate{}
+\postdate{\vspace{-0.3em}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem*{claim*}{Claim}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{definition}\newtheorem*{definition*}{Definition}
+\let\bar\overbar
+\let\0\varnothing 
+\let\phi\varphi
+\let\tilde\widetilde
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\R{\mathbb{R}}
+\def\hw{3}
+\title{Math 151a, Homework \hw}
+\author{Lucas Wheeler}
+\date{}
+\begin{document}
+\maketitle
+\begin{questions}
+\question 2.2.9 \\
+We know that the $\sin (x)$ function is continuous from $[0,2\pi]$. Furthermore we know the value of the $\sin (x)$ function will lie within $[-1,1], \forall x$. Therefore we know that $ \pi - 0.5 \leq f(x)  \leq \pi + 0.5, \forall x$ Therefore $f(x) \in [0,2\pi], \forall x$ By theorem 2.3, this implies that $f(x)$ has at least one fixed point in $[0,2\pi]$
+\[f'(x) = 0.25 \cos (\frac{x}{2}) \]
+$f'(x)$ exists on $(0,2\pi)$ and $|f'(x)| \leq 0.25, \forall x$. Therefore, by theorem 2.3, we can conclude that there is one unique fixed point of $f(x)$ on $(0,2\pi)$. \\
+\begin{lstlisting}[style=Matlab-editor]
+    function [x] = fixedpoint(a, b, tol, N0, p0)
+    F = @(x) pi + 0.5 * sin(0.5*x);
+    j = 1;
+    p = p0;
+    while j < N0
+        p = F(p);
+        if abs(p-p0)<tol
+        % close enough to actual root, stop
+            break;
+        else
+            p0=p;
+            j = j + 1;
+        end
+    end
+    fprintf('Iteration number = %d \n', j);
+    fprintf('p = %.4f \n',p);
+    fprintf('f(p) = %.4f \n', pi + 0.5 * sin(0.5*p));
+\end{lstlisting}
+Using the code above, to approximate the fix point to within $10^{-2}$, we get $x \approx 3.6270$ in 3 iterations if we start with a $p_0 = \pi$.\\
+By corollary 2.5, we know that $|p_n - p| \leq \frac{k^n}{1-k} |p_1 - p_0|, \forall n \geq 1$. This implies that $10^{-2} \leq \frac{k^n}{1-k} |p_1 - p_0| = \frac{0.25^n}{0.75} |3.6416 - \pi| = \frac{2}{3} * 0.25^n$ 
+Doing some algebra and taking the log of both sides results in an n value of $n \geq 3.0294$. This is similar to the actual iteration in which a fixed point was located. 
+
+\question 2.2.13a
+\question 2.2.13b 
+\question 2.2.20 
+\question 2.2.24 
+\question 2.3.19 
+\question 2.3.23
+\question 2.3.25
+\quesiton 2.3.28
+
+\begin{parts}
+\part 
+\end{parts}
+\end{questions}
+\end{document}
